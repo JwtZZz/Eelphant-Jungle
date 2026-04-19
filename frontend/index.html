@@ -62,7 +62,323 @@
 
     .layout { display: flex; min-height: 100vh; }
 
-    .main { flex: 1; }
+    .main {
+      flex: 1;
+      padding: 28px 20px 28px 28px;
+      min-width: 0;
+    }
+
+    .workspace-shell {
+      min-height: calc(100vh - 56px);
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .workspace-sidebar {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 24px;
+      box-shadow: 0 4px 24px var(--shadow-soft);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 6px 2px;
+    }
+
+    .brand-title {
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-subtitle {
+      margin-top: 4px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 16%, transparent);
+      flex: 0 0 auto;
+    }
+
+    .nav-group-label {
+      padding: 0 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 14px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid transparent;
+      border-radius: 18px;
+      box-shadow: none;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: color-mix(in srgb, var(--bg-toggle-active) 72%, transparent);
+      color: var(--text-primary);
+      opacity: 1;
+    }
+
+    .nav-item.active {
+      background: color-mix(in srgb, var(--bg-toggle-active) 88%, transparent);
+      color: var(--text-primary);
+      border-color: var(--border-warm);
+      box-shadow: 0 0 0 1px var(--shadow-lift);
+    }
+
+    .nav-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 14%, var(--bg-surface));
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      flex: 0 0 auto;
+    }
+
+    .workspace-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 32px;
+      box-shadow: 0 4px 24px var(--shadow-soft);
+      padding: 34px 34px 28px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .workspace-view {
+      display: none;
+      min-width: 0;
+    }
+
+    .workspace-view.active {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .workspace-empty {
+      flex: 1;
+      min-height: calc(100vh - 150px);
+      border: 1px dashed var(--border-warm);
+      border-radius: 28px;
+      background: color-mix(in srgb, var(--bg-toggle-active) 28%, transparent);
+      box-shadow: inset 0 0 0 1px var(--shadow-lift);
+    }
+
+    .hero-block {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-start;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .hero-eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      max-width: 700px;
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 52px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-top: 16px;
+      color: var(--text-secondary);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .hero-stat {
+      min-width: 180px;
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-warm);
+      border-radius: 20px;
+      background: color-mix(in srgb, var(--bg-toggle-active) 48%, var(--bg-surface));
+      box-shadow: 0 0 0 1px var(--shadow-lift);
+    }
+
+    .hero-stat-label {
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-stat-value {
+      margin-top: 10px;
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .section-title {
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .info-card {
+      padding: 20px 20px 18px;
+      background: color-mix(in srgb, var(--bg-toggle-active) 40%, var(--bg-surface));
+      border: 1px solid var(--border-warm);
+      border-radius: 22px;
+      box-shadow: 0 0 0 1px var(--shadow-lift);
+      min-width: 0;
+    }
+
+    .info-card-wide {
+      grid-column: 1 / -1;
+    }
+
+    .card-kicker {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .card-copy {
+      margin-top: 12px;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-warm);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .list-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .list-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-surface);
+      box-shadow: 0 0 0 1px var(--shadow-lift);
+    }
+
+    .list-card h4 {
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .mini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .mini-item {
+      padding-top: 12px;
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .mini-item strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
 
     .right-panel {
       width: 33.33%;
@@ -361,11 +677,129 @@
     .send-button:hover {
       opacity: 0.9;
     }
+
+    @media (max-width: 1180px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .main,
+      .right-panel {
+        width: 100%;
+      }
+
+      .workspace-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .right-panel {
+        padding-top: 0;
+      }
+
+      .theme-toggle {
+        top: 20px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .main {
+        padding: 20px 14px 14px;
+      }
+
+      .workspace-sidebar,
+      .workspace-panel {
+        border-radius: 22px;
+      }
+
+      .workspace-panel {
+        padding: 22px 18px;
+      }
+
+      .hero-block,
+      .list-panel,
+      .card-grid {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-title {
+        font-size: 38px;
+      }
+
+      .right-panel {
+        padding: 18px 14px 24px;
+      }
+
+      .theme-toggle {
+        right: 14px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="layout">
-    <div class="main"></div>
+    <div class="main">
+      <div class="workspace-shell">
+        <aside class="workspace-sidebar">
+          <div class="brand-mark">
+            <div>
+              <div class="brand-title">Elephant Jungle</div>
+             
+            </div>
+            <span class="status-dot" aria-hidden="true"></span>
+          </div>
+
+          <div>
+            <div class="nav-group-label">Workspace</div>
+            <div class="nav-list">
+              <button class="nav-item" type="button" data-view="markets">
+                <span class="nav-icon">01</span>
+                <span>Markets</span>
+              </button>
+              <button class="nav-item active" type="button" data-view="overview">
+                <span class="nav-icon">02</span>
+                <span>Overview</span>
+              </button>
+              <button class="nav-item" type="button" data-view="policy">
+                <span class="nav-icon">03</span>
+                <span>Policy</span>
+              </button>
+              <button class="nav-item" type="button" data-view="projects">
+                <span class="nav-icon">04</span>
+                <span>Projects</span>
+              </button>
+              <button class="nav-item" type="button" data-view="research">
+                <span class="nav-icon">05</span>
+                <span>Research</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="workspace-panel">
+          <div class="workspace-view active" data-view-panel="overview">
+            <div class="workspace-empty" aria-hidden="true"></div>
+          </div>
+
+          <div class="workspace-view" data-view-panel="markets">
+            <div class="workspace-empty" aria-hidden="true"></div>
+          </div>
+
+          <div class="workspace-view" data-view-panel="policy">
+            <div class="workspace-empty" aria-hidden="true"></div>
+          </div>
+
+          <div class="workspace-view" data-view-panel="projects">
+            <div class="workspace-empty" aria-hidden="true"></div>
+          </div>
+
+          <div class="workspace-view" data-view-panel="research">
+            <div class="workspace-empty" aria-hidden="true"></div>
+          </div>
+        </section>
+      </div>
+    </div>
     <div class="right-panel">
       <div class="theme-toggle" aria-label="Theme toggle">
         <button class="theme-chip active" id="lightModeBtn" type="button">Day</button>
@@ -405,6 +839,8 @@
     const inputSpriteMirror = document.getElementById('inputSpriteMirror');
     const inputSpriteShell = document.getElementById('inputSpriteShell');
     const inputSpriteTrack = document.getElementById('inputSpriteTrack');
+    const navItems = Array.from(document.querySelectorAll('.nav-item'));
+    const viewPanels = Array.from(document.querySelectorAll('.workspace-view'));
     let typingTimer;
     let streamTimer;
     let animationFrame = null;
@@ -412,6 +848,7 @@
     let lastFrameTime = 0;
     let currentSpeed = 0.85;
     const THEME_KEY = 'elephant-jungle-theme';
+    const REQUEST_TIMEOUT_MS = 20000;
     const spriteWidth = 64;
     const cruiseSpeed = 0.85;
     const typingSpeed = 2.2;
@@ -438,6 +875,15 @@
       lightModeBtn.classList.toggle('active', nextTheme === 'light');
       darkModeBtn.classList.toggle('active', nextTheme === 'dark');
       localStorage.setItem(THEME_KEY, nextTheme);
+    }
+
+    function switchWorkspace(viewName) {
+      navItems.forEach((item) => {
+        item.classList.toggle('active', item.dataset.view === viewName);
+      });
+      viewPanels.forEach((panel) => {
+        panel.classList.toggle('active', panel.dataset.viewPanel === viewName);
+      });
     }
 
     function setSpriteState(state) {
@@ -603,18 +1049,44 @@
         input.disabled = true;
         sendButton.disabled = true;
         removeMessageActions(content);
-        const thinking = createThinkingPlaceholder();
-        message.insertBefore(thinking.content, actions);
+        content.classList.add('thinking-inline');
+
+        const frames = [
+          'T',
+          'Th',
+          'Thi',
+          'Thin',
+          'Think',
+          'Thinki',
+          'Thinkin',
+          'Thinking',
+          'Thinking.',
+          'Thinking..',
+          'Thinking...',
+        ];
+        const frameDelays = [55, 65, 75, 85, 95, 110, 125, 145, 175, 210, 250];
+        let frameIndex = 0;
+        let stopped = false;
+
+        function tickThinking() {
+          if (stopped) {
+            return;
+          }
+          content.textContent = frames[frameIndex];
+          const delay = frameDelays[frameIndex];
+          frameIndex = (frameIndex + 1) % frames.length;
+          setTimeout(tickThinking, delay);
+        }
+
+        tickThinking();
 
         try {
           const answer = await askBackend(query);
-          thinking.timer.stop();
-          await streamBotReply(answer, thinking.content, query);
-          content.remove();
+          stopped = true;
+          await streamBotReply(answer, content, query);
         } catch (error) {
-          thinking.timer.stop();
-          await streamBotReply(`Backend error: ${error.message}`, thinking.content, query);
-          content.remove();
+          stopped = true;
+          await streamBotReply(`Backend error: ${error.message}`, content, query);
         }
 
         isStreaming = false;
@@ -675,11 +1147,26 @@
     }
 
     async function askBackend(query) {
-      const response = await fetch('http://127.0.0.1:8000/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, top_k: 5 })
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+      let response;
+
+      try {
+        response = await fetch('http://127.0.0.1:8000/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, top_k: 5 }),
+          signal: controller.signal,
+        });
+      } catch (error) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+          throw new Error('Request timed out, please retry.');
+        }
+        throw error;
+      }
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         let detail = 'request failed';
@@ -771,12 +1258,16 @@
     });
     lightModeBtn.addEventListener('click', () => applyTheme('light'));
     darkModeBtn.addEventListener('click', () => applyTheme('dark'));
+    navItems.forEach((item) => {
+      item.addEventListener('click', () => switchWorkspace(item.dataset.view));
+    });
     window.addEventListener('resize', () => {
       sprites.forEach((sprite) => {
         applySpritePosition(sprite);
       });
     });
     applyTheme(localStorage.getItem(THEME_KEY) || 'light');
+    switchWorkspace('overview');
     setCruiseMode();
     sprites[1].progress = getTrackMetrics(sprites[1]).perimeter / 2;
     sprites.forEach((sprite) => {
