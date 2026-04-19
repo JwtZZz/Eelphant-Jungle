@@ -23,6 +23,16 @@ app.add_middleware(
 
 class IngestRequest(BaseModel):
     source: str = Field(default="manual")
+    title: str | None = None
+    url: str | None = None
+    published_at: str | None = None
+    doc_type: str | None = None
+    project: str | None = None
+    category: str | None = None
+    region: str | None = None
+    source_type: str | None = None
+    language: str | None = None
+    summary: str | None = None
     content: str
 
 
@@ -51,7 +61,20 @@ def health() -> dict:
 @app.post("/ingest")
 def ingest(req: IngestRequest) -> dict:
     try:
-        return ingest_document(source=req.source, content=req.content)
+        return ingest_document(
+            source=req.source,
+            title=req.title,
+            url=req.url,
+            published_at=req.published_at,
+            doc_type=req.doc_type,
+            project=req.project,
+            category=req.category,
+            region=req.region,
+            source_type=req.source_type,
+            language=req.language,
+            summary=req.summary,
+            content=req.content,
+        )
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 

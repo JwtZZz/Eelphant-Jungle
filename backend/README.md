@@ -32,7 +32,20 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 - `POST /ingest`
   - body:
 ```json
-{"source":"manual","content":"your document text"}
+{
+  "source":"CoinDesk",
+  "title":"Bitcoin ETF update",
+  "url":"https://example.com/article",
+  "published_at":"2026-04-19T09:00:00Z",
+  "doc_type":"news",
+  "project":"Bitcoin",
+  "category":"etf",
+  "region":"US",
+  "source_type":"media",
+  "language":"en",
+  "summary":"Short optional summary",
+  "content":"your document text"
+}
 ```
 
 - `POST /search`
@@ -49,3 +62,14 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 `/chat` now prefers RAG results and falls back to general chat when retrieval confidence is low.
 Embeddings are now indexed in Chroma, while SQLite keeps document and chunk metadata.
+Search and chat results now also include source metadata so the frontend can show links and publication info.
+
+## 5) Seed Fixed Web3 Knowledge
+
+The project includes a small fixed Web3 knowledge seed set for concepts like Bitcoin, Ethereum, stablecoins, ETFs, Layer 2, DeFi, and wallet custody.
+
+Run:
+
+```bash
+python seed_foundations.py
+```

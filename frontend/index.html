@@ -10,14 +10,54 @@
     :root {
       --font-serif: Georgia, 'Times New Roman', serif;
       --font-sans: 'Inter', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+      --bg-page: #f5f4ed;
+      --bg-surface: #faf9f5;
+      --bg-user: #ebe5d8;
+      --bg-bot: #fffefb;
+      --bg-input: #faf9f5;
+      --bg-toggle: #faf9f5;
+      --bg-toggle-active: #e8e6dc;
+      --text-primary: #141413;
+      --text-secondary: #5e5d59;
+      --text-user: #3d3d3a;
+      --text-muted: #87867f;
+      --border-soft: #f0eee6;
+      --border-warm: #e8e6dc;
+      --ring-warm: #d1cfc5;
+      --accent: #c96442;
+      --shadow-soft: rgba(20,20,19,0.03);
+      --shadow-lift: rgba(0,0,0,0.03);
+      --theme-button-text: #141413;
+    }
+
+    body[data-theme="dark"] {
+      --bg-page: #141413;
+      --bg-surface: #30302e;
+      --bg-user: #4d3f33;
+      --bg-bot: #2a2a28;
+      --bg-input: #232321;
+      --bg-toggle: #232321;
+      --bg-toggle-active: #30302e;
+      --text-primary: #faf9f5;
+      --text-secondary: #b0aea5;
+      --text-user: #faf9f5;
+      --text-muted: #87867f;
+      --border-soft: #30302e;
+      --border-warm: #4d4c48;
+      --ring-warm: #4d4c48;
+      --accent: #d97757;
+      --shadow-soft: rgba(0,0,0,0.18);
+      --shadow-lift: rgba(0,0,0,0.12);
+      --theme-button-text: #faf9f5;
     }
 
     body {
       min-height: 100vh;
-      background: #f5f4ed;
-      color: #141413;
+      background: var(--bg-page);
+      color: var(--text-primary);
       font-family: var(--font-sans);
       line-height: 1.60;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     .layout { display: flex; min-height: 100vh; }
@@ -27,6 +67,44 @@
     .right-panel {
       width: 33.33%;
       padding: 40px 32px;
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 28px;
+      right: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      background: var(--bg-toggle);
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      box-shadow: 0 0 0 1px var(--shadow-lift);
+      z-index: 5;
+    }
+
+    .theme-chip {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 12px;
+      min-width: 56px;
+      background: transparent;
+      color: var(--text-secondary);
+      box-shadow: none;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+    }
+
+    .theme-chip.active {
+      background: var(--bg-toggle-active);
+      color: var(--theme-button-text);
+      box-shadow: 0 0 0 1px var(--ring-warm);
     }
 
     .chat-stage::before {
@@ -34,7 +112,7 @@
       position: absolute;
       top: -74px;
       left: 0;
-      color: #141413;
+      color: var(--text-primary);
       font-family: var(--font-serif);
       font-size: 28px;
       line-height: 1.2;
@@ -48,13 +126,14 @@
     }
 
     .chat-box {
-      background: #faf9f5;
-      border: 1px solid #f0eee6;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-soft);
       border-radius: 12px;
-      height: 520px;
+      height: calc(100vh - 210px);
+      min-height: 680px;
       overflow: auto;
       padding: 20px;
-      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.03);
+      box-shadow: 0px 0px 0px 1px var(--shadow-lift);
       scrollbar-width: none;
       -ms-overflow-style: none;
       display: flex;
@@ -73,19 +152,19 @@
       font-family: var(--font-sans);
       font-size: 15px;
       line-height: 1.45;
-      box-shadow: 0 4px 12px rgba(20,20,19,0.03);
+      box-shadow: 0 4px 12px var(--shadow-soft);
     }
 
     .msg.user {
       align-self: flex-end;
-      background: #ebe5d8;
-      color: #3d3d3a;
+      background: var(--bg-user);
+      color: var(--text-user);
     }
 
     .msg.bot {
       align-self: flex-start;
-      background: #fffefb;
-      border: 1px solid #eee8dc;
+      background: var(--bg-bot);
+      border: 1px solid var(--border-warm);
     }
 
     .msg.assistant {
@@ -96,7 +175,7 @@
     }
 
     .msg-content {
-      color: #141413;
+      color: var(--text-primary);
       font-family: var(--font-serif);
       font-size: 16px;
       line-height: 1.45;
@@ -126,11 +205,11 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: #faf9f5;
-      color: #5e5d59;
-      border: 1px solid #e8e6dc;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-warm);
       border-radius: 999px;
-      box-shadow: 0 0 0 1px rgba(20,20,19,0.03);
+      box-shadow: 0 0 0 1px var(--shadow-lift);
       font-family: var(--font-sans);
       font-size: 13px;
       line-height: 1;
@@ -139,9 +218,9 @@
     }
 
     .msg-action-btn:hover {
-      background: #e8e6dc;
-      color: #141413;
-      border-color: #d1cfc5;
+      background: var(--border-warm);
+      color: var(--text-primary);
+      border-color: var(--ring-warm);
     }
 
     .msg-action-btn svg {
@@ -241,31 +320,31 @@
       flex: 1;
       width: 100%;
       padding: 14px 16px;
-      border: 1px solid #e8e6dc;
+      border: 1px solid var(--border-warm);
       border-radius: 12px;
-      background: #faf9f5;
-      color: #141413;
+      background: var(--bg-input);
+      color: var(--text-primary);
       font-family: var(--font-sans);
       font-size: 15px;
       outline: none;
-      box-shadow: 0px 0px 0px 1px #e8e6dc;
+      box-shadow: 0px 0px 0px 1px var(--border-warm);
       transition: box-shadow 0.2s ease;
       cursor: text;
-      caret-color: #c96442;
+      caret-color: var(--accent);
     }
 
     input::placeholder {
-      color: #87867f;
+      color: var(--text-muted);
     }
 
     input:focus {
-      box-shadow: 0px 0px 0px 2px #c96442;
-      border-color:#c96442;
+      box-shadow: 0px 0px 0px 2px var(--accent);
+      border-color: var(--accent);
     }
 
-    button {
+    .send-button {
       padding: 12px 22px;
-      background: #c96442;
+      background: var(--accent);
       color: #faf9f5;
       border: none;
       border-radius: 12px;
@@ -275,11 +354,11 @@
       letter-spacing: -0.01em;
       font-weight: 500;
       cursor: pointer;
-      box-shadow: 0px 0px 0px 1px #c96442;
+      box-shadow: 0px 0px 0px 1px var(--accent);
       transition: opacity 0.2s ease;
     }
 
-    button:hover {
+    .send-button:hover {
       opacity: 0.9;
     }
   </style>
@@ -288,6 +367,10 @@
   <div class="layout">
     <div class="main"></div>
     <div class="right-panel">
+      <div class="theme-toggle" aria-label="Theme toggle">
+        <button class="theme-chip active" id="lightModeBtn" type="button">Day</button>
+        <button class="theme-chip" id="darkModeBtn" type="button">Night</button>
+      </div>
       <div class="chat-stage">
         <div class="chat-sprite-track" id="spriteTrack" aria-hidden="true">
           <div class="sprite-shell facing-right" id="spriteShell">
@@ -305,14 +388,17 @@
           </div>
           <input type="text" id="input" placeholder="问点什么..." />
         </div>
-          <button onclick="sendMessage()">Send</button>
+          <button class="send-button" onclick="sendMessage()">Send</button>
         </div>
       </div>
   </div>
   <script>
+    const body = document.body;
     const chatBox = document.getElementById('chatBox');
     const input = document.getElementById('input');
-    const sendButton = document.querySelector('button');
+    const sendButton = document.querySelector('.send-button');
+    const lightModeBtn = document.getElementById('lightModeBtn');
+    const darkModeBtn = document.getElementById('darkModeBtn');
     const inputSprite = document.getElementById('inputSprite');
     const spriteShell = document.getElementById('spriteShell');
     const spriteTrack = document.getElementById('spriteTrack');
@@ -325,6 +411,7 @@
     let isStreaming = false;
     let lastFrameTime = 0;
     let currentSpeed = 0.85;
+    const THEME_KEY = 'elephant-jungle-theme';
     const spriteWidth = 64;
     const cruiseSpeed = 0.85;
     const typingSpeed = 2.2;
@@ -344,6 +431,14 @@
         direction: -1,
       }
     ];
+
+    function applyTheme(theme) {
+      const nextTheme = theme === 'dark' ? 'dark' : 'light';
+      body.dataset.theme = nextTheme;
+      lightModeBtn.classList.toggle('active', nextTheme === 'light');
+      darkModeBtn.classList.toggle('active', nextTheme === 'dark');
+      localStorage.setItem(THEME_KEY, nextTheme);
+    }
 
     function setSpriteState(state) {
       sprites.forEach((sprite) => {
@@ -674,11 +769,14 @@
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') sendMessage();
     });
+    lightModeBtn.addEventListener('click', () => applyTheme('light'));
+    darkModeBtn.addEventListener('click', () => applyTheme('dark'));
     window.addEventListener('resize', () => {
       sprites.forEach((sprite) => {
         applySpritePosition(sprite);
       });
     });
+    applyTheme(localStorage.getItem(THEME_KEY) || 'light');
     setCruiseMode();
     sprites[1].progress = getTrackMetrics(sprites[1]).perimeter / 2;
     sprites.forEach((sprite) => {

@@ -70,9 +70,11 @@ def _chat_completion(messages: list[dict], temperature: float = 0.2) -> str:
 def generate_answer(query: str, contexts: list[str]) -> str:
     context_text = "\n\n".join([f"[{i + 1}] {c}" for i, c in enumerate(contexts)])
     system_prompt = (
-        "You are a RAG assistant. Answer based on the provided context first. "
-        "If the context is weak or incomplete, give a helpful general answer and clearly separate "
-        "what comes from context versus general knowledge when needed."
+        "You are a RAG assistant. Answer in natural Chinese with a warm, human tone. "
+        "Use the provided context first. If the context is weak or incomplete, still be helpful, "
+        "but stay honest about uncertainty. Do not use Markdown headings, bold markers, bullet lists, "
+        "or numbered lists unless the user explicitly asks for structured formatting. "
+        "Prefer short natural paragraphs that sound like a person explaining something clearly."
     )
     user_prompt = f"Context:\n{context_text}\n\nQuestion:\n{query}"
     return _chat_completion(
@@ -85,7 +87,9 @@ def generate_answer(query: str, contexts: list[str]) -> str:
 
 def generate_general_answer(query: str) -> str:
     system_prompt = (
-        "You are a helpful assistant. Give clear, direct answers in Chinese unless the user asks otherwise."
+        "You are a helpful assistant. Give clear, direct answers in natural Chinese unless the user asks otherwise. "
+        "Do not use Markdown headings, bold markers, bullet lists, or numbered lists unless the user explicitly asks. "
+        "Prefer a warm, conversational explanation that sounds human."
     )
     return _chat_completion(
         [
