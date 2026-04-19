@@ -58,18 +58,25 @@
       font-family: var(--font-sans);
       line-height: 1.60;
       transition: background 0.25s ease, color 0.25s ease;
+      overflow: hidden;
     }
 
-    .layout { display: flex; min-height: 100vh; }
+    .layout {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
 
     .main {
       flex: 1;
       padding: 28px 20px 28px 28px;
       min-width: 0;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .workspace-shell {
-      min-height: calc(100vh - 56px);
+      height: calc(100vh - 56px);
       display: grid;
       grid-template-columns: 260px minmax(0, 1fr);
       gap: 20px;
@@ -182,10 +189,12 @@
       border-radius: 32px;
       box-shadow: 0 4px 24px var(--shadow-soft);
       padding: 34px 34px 28px;
+      height: 100%;
       min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 28px;
+      overflow: hidden;
     }
 
     .workspace-view {
@@ -197,15 +206,337 @@
       display: flex;
       flex-direction: column;
       gap: 28px;
+      flex: 1;
+      min-height: 0;
     }
 
     .workspace-empty {
       flex: 1;
-      min-height: calc(100vh - 150px);
+      min-height: 0;
       border: 1px dashed var(--border-warm);
       border-radius: 28px;
       background: color-mix(in srgb, var(--bg-toggle-active) 28%, transparent);
       box-shadow: inset 0 0 0 1px var(--shadow-lift);
+    }
+
+    .market-shell {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding-top: 2px;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .market-board {
+      border: 1px solid var(--border-soft);
+      border-radius: 26px;
+      background: var(--bg-surface);
+      box-shadow: 0 4px 24px var(--shadow-soft);
+      overflow: hidden;
+      min-width: 0;
+      max-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .market-header,
+    .market-row {
+      display: grid;
+      grid-template-columns: 2.1fr 1fr 0.9fr 1.25fr 1.1fr 1.1fr;
+      gap: 16px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .market-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      font-family: var(--font-serif);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .market-rows {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-height: 442px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-warm) transparent;
+    }
+
+    .market-rows::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .market-rows::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .market-rows::-webkit-scrollbar-thumb {
+      background: color-mix(in srgb, var(--border-warm) 90%, transparent);
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .market-news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .market-news-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      padding: 16px 18px 16px;
+      border-radius: 24px;
+      border: 1px solid var(--border-warm);
+      background: color-mix(in srgb, var(--bg-toggle-active) 40%, var(--bg-surface));
+      box-shadow: 0 0 0 1px var(--shadow-lift);
+    }
+
+    .market-news-kicker {
+      color: var(--accent);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .market-news-title {
+      margin-top: 8px;
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+    }
+
+    .market-news-copy {
+      margin-top: 8px;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .market-news-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .market-news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+      overflow-y: auto;
+      padding-right: 4px;
+      max-height: 228px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-warm) transparent;
+    }
+
+    .market-news-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .market-news-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .market-news-list::-webkit-scrollbar-thumb {
+      background: color-mix(in srgb, var(--border-warm) 90%, transparent);
+      border-radius: 999px;
+    }
+
+    .market-news-item {
+      display: block;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-soft);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .market-news-item:hover .market-news-item-title {
+      color: var(--accent);
+    }
+
+    .market-news-item-title {
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      transition: color 0.18s ease;
+    }
+
+    .market-news-item-copy {
+      margin-top: 6px;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .market-news-item-meta {
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .market-row {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .market-row:first-child {
+      border-top: none;
+    }
+
+    .market-asset {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .market-coin-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 16%, var(--bg-surface));
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 600;
+      flex: 0 0 auto;
+      overflow: hidden;
+    }
+
+    .market-coin-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .market-asset-text {
+      min-width: 0;
+    }
+
+    .market-symbol {
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 1.08;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .market-name {
+      margin-top: 2px;
+      color: var(--text-secondary);
+      font-family: var(--font-serif);
+      font-size: 11px;
+      line-height: 1.45;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .market-price,
+    .market-cap,
+    .market-range {
+      color: var(--text-primary);
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+    }
+
+    .market-change {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 1.2;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .market-change.up {
+      color: #1d8f54;
+    }
+
+    .market-change.down {
+      color: #b53333;
+    }
+
+    .market-sparkline {
+      width: 100%;
+      height: 46px;
+    }
+
+    .market-sparkline path {
+      transition: d 0.35s ease, stroke 0.25s ease;
+    }
+
+    .market-range {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .market-range-track {
+      position: relative;
+      width: 100%;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--border-warm);
+      overflow: hidden;
+    }
+
+    .market-range-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .market-range-values {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-serif);
+      font-size: 12px;
+      line-height: 1.4;
+      letter-spacing: 0;
     }
 
     .hero-block {
@@ -384,6 +715,10 @@
       width: 33.33%;
       padding: 40px 32px;
       position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .theme-toggle {
@@ -439,14 +774,16 @@
       position: relative;
       margin-top: 56px;
       margin-bottom: 20px;
+      flex: 1;
+      min-height: 0;
     }
 
     .chat-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-soft);
       border-radius: 12px;
-      height: calc(100vh - 210px);
-      min-height: 680px;
+      height: 100%;
+      min-height: 0;
       overflow: auto;
       padding: 20px;
       box-shadow: 0px 0px 0px 1px var(--shadow-lift);
@@ -681,23 +1018,41 @@
     @media (max-width: 1180px) {
       .layout {
         flex-direction: column;
+        height: auto;
+        overflow: auto;
       }
 
       .main,
       .right-panel {
         width: 100%;
+        height: auto;
       }
 
       .workspace-shell {
         grid-template-columns: 1fr;
+        height: auto;
       }
 
       .right-panel {
         padding-top: 0;
+        overflow: visible;
       }
 
       .theme-toggle {
         top: 20px;
+      }
+
+      .main {
+        height: auto;
+      }
+
+      .workspace-panel,
+      .market-shell {
+        height: auto;
+      }
+
+      .chat-stage {
+        min-height: 540px;
       }
     }
 
@@ -717,7 +1072,8 @@
 
       .hero-block,
       .list-panel,
-      .card-grid {
+      .card-grid,
+      .market-news-grid {
         grid-template-columns: 1fr;
         display: flex;
         flex-direction: column;
@@ -753,11 +1109,11 @@
           <div>
             <div class="nav-group-label">Workspace</div>
             <div class="nav-list">
-              <button class="nav-item" type="button" data-view="markets">
+              <button class="nav-item active" type="button" data-view="markets">
                 <span class="nav-icon">01</span>
                 <span>Markets</span>
               </button>
-              <button class="nav-item active" type="button" data-view="overview">
+              <button class="nav-item" type="button" data-view="overview">
                 <span class="nav-icon">02</span>
                 <span>Overview</span>
               </button>
@@ -778,12 +1134,25 @@
         </aside>
 
         <section class="workspace-panel">
-          <div class="workspace-view active" data-view-panel="overview">
+          <div class="workspace-view" data-view-panel="overview">
             <div class="workspace-empty" aria-hidden="true"></div>
           </div>
 
-          <div class="workspace-view" data-view-panel="markets">
-            <div class="workspace-empty" aria-hidden="true"></div>
+          <div class="workspace-view active" data-view-panel="markets">
+            <div class="market-shell">
+              <div class="market-board">
+                <div class="market-header">
+                  <div>Asset</div>
+                  <div>Price</div>
+                  <div>24h</div>
+                  <div>Trend</div>
+                  <div>24h Range</div>
+                  <div>Market Cap</div>
+                </div>
+                <div class="market-rows" id="marketRows"></div>
+              </div>
+              <div class="market-news-grid" id="marketNewsGrid"></div>
+            </div>
           </div>
 
           <div class="workspace-view" data-view-panel="policy">
@@ -841,17 +1210,56 @@
     const inputSpriteTrack = document.getElementById('inputSpriteTrack');
     const navItems = Array.from(document.querySelectorAll('.nav-item'));
     const viewPanels = Array.from(document.querySelectorAll('.workspace-view'));
+    const marketRowsEl = document.getElementById('marketRows');
+    const marketNewsGridEl = document.getElementById('marketNewsGrid');
     let typingTimer;
     let streamTimer;
     let animationFrame = null;
     let isStreaming = false;
     let lastFrameTime = 0;
     let currentSpeed = 0.85;
+    let marketRefreshTimer = null;
+    let marketRequestInFlight = false;
+    let marketSocket = null;
+    let marketSocketManualClose = false;
     const THEME_KEY = 'elephant-jungle-theme';
     const REQUEST_TIMEOUT_MS = 20000;
+    const MARKET_REFRESH_MS = 60000;
     const spriteWidth = 64;
     const cruiseSpeed = 0.85;
     const typingSpeed = 2.2;
+    const marketData = [
+      { symbol: 'BTC', name: 'Bitcoin', category: 'Blue Chip', price: '$76,118.00', change: -0.10, low: '$74,941.40', high: '$76,291.40', cap: '$1.52T', spark: [74, 73, 73, 74, 74, 73, 72, 73, 71, 70, 72, 75] },
+      { symbol: 'ETH', name: 'Ethereum', category: 'Layer 1', price: '$2,339.75', change: -1.03, low: '$2,299.75', high: '$2,375.02', cap: '$281.9B', spark: [63, 62, 62, 61, 61, 60, 59, 58, 57, 59, 59, 58] },
+      { symbol: 'USDT', name: 'Tether', category: 'Payments', price: '$1.0003', change: 0.01, low: '$1.0001', high: '$1.0005', cap: '$186.6B', spark: [50, 50, 51, 50, 52, 51, 51, 52, 51, 53, 52, 52] },
+      { symbol: 'XRP', name: 'XRP', category: 'Payments', price: '$1.4375', change: 0.08, low: '$1.4137', high: '$1.4474', cap: '$88.3B', spark: [41, 40, 40, 41, 42, 41, 41, 40, 41, 42, 44, 43] },
+      { symbol: 'BNB', name: 'BNB', category: 'Blue Chip', price: '$626.80', change: -1.04, low: '$618.40', high: '$634.30', cap: '$84.3B', spark: [70, 69, 69, 68, 68, 67, 66, 65, 65, 66, 67, 68] },
+      { symbol: 'SOL', name: 'Solana', category: 'Solana', price: '$186.61', change: 2.20, low: '$181.42', high: '$188.94', cap: '$84.1B', spark: [54, 55, 54, 56, 58, 57, 59, 60, 59, 61, 62, 64] },
+      { symbol: 'USDC', name: 'USD Coin', category: 'Payments', price: '$0.99988', change: 0.01, low: '$0.99969', high: '$0.99993', cap: '$78.4B', spark: [50, 51, 50, 51, 50, 50, 51, 50, 52, 50, 51, 51] },
+      { symbol: 'TRX', name: 'Tron', category: 'Layer 1', price: '$0.33285', change: 1.01, low: '$0.32751', high: '$0.33451', cap: '$31.5B', spark: [44, 44, 43, 43, 43, 44, 45, 46, 49, 48, 49, 50] }
+    ];
+    const defaultBriefs = {
+      social: [
+        {
+          title: 'X watch fallback',
+          url: 'https://x.com/',
+          summary: 'Social discussion will appear here once the backend feed returns.',
+          source: 'Fallback',
+          published_at: '',
+        }
+      ],
+      news: [
+        {
+          title: 'Finance news fallback',
+          url: 'https://news.google.com/',
+          summary: 'Latest financial crypto headlines will appear here once the backend feed returns.',
+          source: 'Fallback',
+          published_at: '',
+        }
+      ]
+    };
+    let currentBriefs = { ...defaultBriefs };
+    let currentMarketRows = [...marketData];
     const sprites = [
       {
         avatar: inputSprite,
@@ -884,6 +1292,272 @@
       viewPanels.forEach((panel) => {
         panel.classList.toggle('active', panel.dataset.viewPanel === viewName);
       });
+    }
+
+    function getSparklineSvg(points, trendUp) {
+      const width = 144;
+      const height = 46;
+      const min = Math.min(...points);
+      const max = Math.max(...points);
+      const range = Math.max(1, max - min);
+      const coords = points.map((point, index) => {
+        const x = (index / Math.max(1, points.length - 1)) * width;
+        const y = height - (((point - min) / range) * (height - 8) + 4);
+        return { x, y };
+      });
+      const path = buildSmoothPath(coords);
+      const stroke = trendUp ? '#1d8f54' : '#b53333';
+      return `
+        <svg class="market-sparkline" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">
+          <path d="${path}" fill="none" stroke="${stroke}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      `;
+    }
+
+    function buildSmoothPath(points) {
+      if (!points.length) {
+        return '';
+      }
+      if (points.length === 1) {
+        return `M${points[0].x.toFixed(2)},${points[0].y.toFixed(2)}`;
+      }
+
+      let path = `M${points[0].x.toFixed(2)},${points[0].y.toFixed(2)}`;
+      for (let i = 0; i < points.length - 1; i += 1) {
+        const current = points[i];
+        const next = points[i + 1];
+        const prev = points[i - 1] || current;
+        const after = points[i + 2] || next;
+
+        const cp1x = current.x + (next.x - prev.x) / 6;
+        const cp1y = current.y + (next.y - prev.y) / 6;
+        const cp2x = next.x - (after.x - current.x) / 6;
+        const cp2y = next.y - (after.y - current.y) / 6;
+
+        path += ` C${cp1x.toFixed(2)},${cp1y.toFixed(2)} ${cp2x.toFixed(2)},${cp2y.toFixed(2)} ${next.x.toFixed(2)},${next.y.toFixed(2)}`;
+      }
+      return path;
+    }
+
+    function renderMarketRows(rows) {
+      marketRowsEl.innerHTML = rows.map((coin) => {
+        const trendUp = coin.change >= 0;
+        const fillWidth = trendUp ? 68 : 44;
+        const coinMark = coin.image
+          ? `<img src="${coin.image}" alt="${coin.symbol}">`
+          : coin.symbol.slice(0, 2);
+        return `
+          <div class="market-row">
+            <div class="market-asset">
+              <div class="market-coin-mark">${coinMark}</div>
+              <div class="market-asset-text">
+                <div class="market-symbol">${coin.symbol}</div>
+                <div class="market-name">${coin.name}</div>
+              </div>
+            </div>
+            <div class="market-price">${coin.price}</div>
+            <div class="market-change ${trendUp ? 'up' : 'down'}">${coin.change > 0 ? '+' : ''}${coin.change.toFixed(2)}%</div>
+            <div>${getSparklineSvg(coin.spark, trendUp)}</div>
+            <div class="market-range">
+              <div class="market-range-track"><span class="market-range-fill" style="width:${fillWidth}%"></span></div>
+              <div class="market-range-values"><span>${coin.low}</span><span>${coin.high}</span></div>
+            </div>
+            <div class="market-cap">${coin.cap}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderBriefColumn(title, kicker, items) {
+      return `
+        <section class="market-news-card">
+          <div class="market-news-kicker">${kicker}</div>
+          <div class="market-news-title">${title}</div>
+          <div class="market-news-copy">Updated every five hours. Scroll inside this panel to browse the latest items without stretching the whole page.</div>
+          <div class="market-news-list">
+            ${items.map((item) => `
+              <a class="market-news-item" href="${item.url}" target="_blank" rel="noreferrer">
+                <div class="market-news-item-title">${item.title}</div>
+                <div class="market-news-item-copy">${item.summary || 'Open the source for the full thread or article.'}</div>
+                <div class="market-news-item-meta">${item.source || 'Source'}${item.published_at ? ` · ${item.published_at}` : ''}</div>
+              </a>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderMarketNews() {
+      const socialItems = (currentBriefs.social && currentBriefs.social.length) ? currentBriefs.social : defaultBriefs.social;
+      const newsItems = (currentBriefs.news && currentBriefs.news.length) ? currentBriefs.news : defaultBriefs.news;
+      marketNewsGridEl.innerHTML = [
+        renderBriefColumn('X Watch', 'Social commentary', socialItems),
+        renderBriefColumn('Finance News', 'Latest headlines', newsItems),
+      ].join('');
+    }
+
+    async function loadMarketBriefs() {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/market/briefs');
+        if (!response.ok) {
+          throw new Error(`briefs request failed (${response.status})`);
+        }
+        const payload = await response.json();
+        currentBriefs = {
+          social: Array.isArray(payload.social) ? payload.social : defaultBriefs.social,
+          news: Array.isArray(payload.news) ? payload.news : defaultBriefs.news,
+        };
+      } catch (error) {
+        console.error('Briefs fallback', error);
+        currentBriefs = { ...defaultBriefs };
+      }
+      renderMarketNews();
+    }
+
+    function getBinanceSymbol(coin) {
+      if (!coin || !coin.symbol) {
+        return null;
+      }
+      const symbol = coin.symbol.toUpperCase();
+      if (symbol === 'USDT') {
+        return null;
+      }
+      return `${symbol}USDT`;
+    }
+
+    function updateMarketRowFromTicker(ticker) {
+      const streamSymbol = (ticker.s || '').toUpperCase();
+      if (!streamSymbol) {
+        return;
+      }
+
+      let changed = false;
+      currentMarketRows = currentMarketRows.map((coin) => {
+        if (getBinanceSymbol(coin) !== streamSymbol) {
+          return coin;
+        }
+
+        changed = true;
+        const nextPrice = Number.parseFloat(ticker.c || '0');
+        const nextChange = Number.parseFloat(ticker.P || '0');
+        const nextLow = Number.parseFloat(ticker.l || '0');
+        const nextHigh = Number.parseFloat(ticker.h || '0');
+        const spark = Array.isArray(coin.spark) ? [...coin.spark] : [];
+        if (Number.isFinite(nextPrice) && nextPrice > 0) {
+          spark.push(nextPrice);
+        }
+        const trimmedSpark = spark.slice(-12);
+
+        return {
+          ...coin,
+          price: formatUsdValue(nextPrice),
+          change: Number.isFinite(nextChange) ? nextChange : coin.change,
+          low: formatUsdValue(nextLow),
+          high: formatUsdValue(nextHigh),
+          spark: trimmedSpark.length ? trimmedSpark : coin.spark,
+        };
+      });
+
+      if (changed) {
+        renderMarketRows(currentMarketRows);
+      }
+    }
+
+    function connectMarketStream() {
+      const streams = currentMarketRows
+        .map((coin) => getBinanceSymbol(coin))
+        .filter(Boolean)
+        .map((symbol) => `${symbol.toLowerCase()}@ticker`);
+
+      if (!streams.length) {
+        return;
+      }
+
+      if (marketSocket) {
+        marketSocketManualClose = true;
+        marketSocket.close();
+      }
+
+      const streamUrl = `wss://stream.binance.com:9443/stream?streams=${streams.join('/')}`;
+      marketSocketManualClose = false;
+      marketSocket = new WebSocket(streamUrl);
+
+      marketSocket.onmessage = (event) => {
+        try {
+          const payload = JSON.parse(event.data);
+          const ticker = payload.data || payload;
+          updateMarketRowFromTicker(ticker);
+        } catch (error) {
+          console.error('Market stream parse error', error);
+        }
+      };
+
+      marketSocket.onerror = () => {
+        console.error('Market stream error');
+      };
+
+      marketSocket.onclose = () => {
+        if (marketSocketManualClose) {
+          return;
+        }
+        setTimeout(() => {
+          if (document.visibilityState === 'visible') {
+            connectMarketStream();
+          }
+        }, 3000);
+      };
+    }
+
+    function formatUsdValue(value) {
+      if (!Number.isFinite(value) || value <= 0) {
+        return '--';
+      }
+      if (value >= 1000) {
+        return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      }
+      if (value >= 1) {
+        return `$${value.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}`;
+      }
+      return `$${value.toLocaleString(undefined, { minimumFractionDigits: 5, maximumFractionDigits: 5 })}`;
+    }
+
+    async function loadMarketData() {
+      if (marketRequestInFlight) {
+        return;
+      }
+      marketRequestInFlight = true;
+      try {
+        const response = await fetch('http://127.0.0.1:8000/market/coins');
+        if (!response.ok) {
+          throw new Error(`market request failed (${response.status})`);
+        }
+        const payload = await response.json();
+        if (Array.isArray(payload.coins) && payload.coins.length) {
+          currentMarketRows = payload.coins;
+          connectMarketStream();
+        }
+      } catch (error) {
+        console.error('Market data fallback', error);
+        currentMarketRows = [...marketData];
+        connectMarketStream();
+      } finally {
+        marketRequestInFlight = false;
+      }
+      renderMarketRows(currentMarketRows);
+    }
+
+    function renderMarkets() {
+      renderMarketRows(currentMarketRows);
+      renderMarketNews();
+    }
+
+    function startMarketRefresh() {
+      if (marketRefreshTimer) {
+        clearInterval(marketRefreshTimer);
+      }
+      marketRefreshTimer = setInterval(() => {
+        loadMarketData();
+      }, MARKET_REFRESH_MS);
     }
 
     function setSpriteState(state) {
@@ -1267,7 +1941,11 @@
       });
     });
     applyTheme(localStorage.getItem(THEME_KEY) || 'light');
-    switchWorkspace('overview');
+    renderMarkets();
+    loadMarketData();
+    loadMarketBriefs();
+    startMarketRefresh();
+    switchWorkspace('markets');
     setCruiseMode();
     sprites[1].progress = getTrackMetrics(sprites[1]).perimeter / 2;
     sprites.forEach((sprite) => {
