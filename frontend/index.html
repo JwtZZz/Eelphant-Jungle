@@ -102,7 +102,7 @@
     }
 
     .brand-title {
-      color: var(--text-primary);
+      color: var(--accent);
       font-family: var(--font-serif);
       font-size: 28px;
       line-height: 1.1;
@@ -1107,7 +1107,6 @@
           </div>
 
           <div>
-            <div class="nav-group-label">Workspace</div>
             <div class="nav-list">
               <button class="nav-item active" type="button" data-view="markets">
                 <span class="nav-icon">01</span>
@@ -1220,11 +1219,10 @@
     let currentSpeed = 0.85;
     let marketRefreshTimer = null;
     let marketRequestInFlight = false;
-    let marketSocket = null;
-    let marketSocketManualClose = false;
     const THEME_KEY = 'elephant-jungle-theme';
     const REQUEST_TIMEOUT_MS = 20000;
-    const MARKET_REFRESH_MS = 60000;
+    const MARKET_REFRESH_MS = 3000;
+    const API_BASE = `${window.location.protocol}//${window.location.hostname || '127.0.0.1'}:8000`;
     const spriteWidth = 64;
     const cruiseSpeed = 0.85;
     const typingSpeed = 2.2;
@@ -1398,7 +1396,7 @@
 
     async function loadMarketBriefs() {
       try {
-        const response = await fetch('http://127.0.0.1:8000/market/briefs');
+        const response = await fetch(`${API_BASE}/market/briefs`);
         if (!response.ok) {
           throw new Error(`briefs request failed (${response.status})`);
         }
@@ -1412,100 +1410,6 @@
         currentBriefs = { ...defaultBriefs };
       }
       renderMarketNews();
-    }
-
-    function getBinanceSymbol(coin) {
-      if (!coin || !coin.symbol) {
-        return null;
-      }
-      const symbol = coin.symbol.toUpperCase();
-      if (symbol === 'USDT') {
-        return null;
-      }
-      return `${symbol}USDT`;
-    }
-
-    function updateMarketRowFromTicker(ticker) {
-      const streamSymbol = (ticker.s || '').toUpperCase();
-      if (!streamSymbol) {
-        return;
-      }
-
-      let changed = false;
-      currentMarketRows = currentMarketRows.map((coin) => {
-        if (getBinanceSymbol(coin) !== streamSymbol) {
-          return coin;
-        }
-
-        changed = true;
-        const nextPrice = Number.parseFloat(ticker.c || '0');
-        const nextChange = Number.parseFloat(ticker.P || '0');
-        const nextLow = Number.parseFloat(ticker.l || '0');
-        const nextHigh = Number.parseFloat(ticker.h || '0');
-        const spark = Array.isArray(coin.spark) ? [...coin.spark] : [];
-        if (Number.isFinite(nextPrice) && nextPrice > 0) {
-          spark.push(nextPrice);
-        }
-        const trimmedSpark = spark.slice(-12);
-
-        return {
-          ...coin,
-          price: formatUsdValue(nextPrice),
-          change: Number.isFinite(nextChange) ? nextChange : coin.change,
-          low: formatUsdValue(nextLow),
-          high: formatUsdValue(nextHigh),
-          spark: trimmedSpark.length ? trimmedSpark : coin.spark,
-        };
-      });
-
-      if (changed) {
-        renderMarketRows(currentMarketRows);
-      }
-    }
-
-    function connectMarketStream() {
-      const streams = currentMarketRows
-        .map((coin) => getBinanceSymbol(coin))
-        .filter(Boolean)
-        .map((symbol) => `${symbol.toLowerCase()}@ticker`);
-
-      if (!streams.length) {
-        return;
-      }
-
-      if (marketSocket) {
-        marketSocketManualClose = true;
-        marketSocket.close();
-      }
-
-      const streamUrl = `wss://stream.binance.com:9443/stream?streams=${streams.join('/')}`;
-      marketSocketManualClose = false;
-      marketSocket = new WebSocket(streamUrl);
-
-      marketSocket.onmessage = (event) => {
-        try {
-          const payload = JSON.parse(event.data);
-          const ticker = payload.data || payload;
-          updateMarketRowFromTicker(ticker);
-        } catch (error) {
-          console.error('Market stream parse error', error);
-        }
-      };
-
-      marketSocket.onerror = () => {
-        console.error('Market stream error');
-      };
-
-      marketSocket.onclose = () => {
-        if (marketSocketManualClose) {
-          return;
-        }
-        setTimeout(() => {
-          if (document.visibilityState === 'visible') {
-            connectMarketStream();
-          }
-        }, 3000);
-      };
     }
 
     function formatUsdValue(value) {
@@ -1527,19 +1431,17 @@
       }
       marketRequestInFlight = true;
       try {
-        const response = await fetch('http://127.0.0.1:8000/market/coins');
+        const response = await fetch(`${API_BASE}/market/coins`);
         if (!response.ok) {
           throw new Error(`market request failed (${response.status})`);
         }
         const payload = await response.json();
         if (Array.isArray(payload.coins) && payload.coins.length) {
           currentMarketRows = payload.coins;
-          connectMarketStream();
         }
       } catch (error) {
         console.error('Market data fallback', error);
         currentMarketRows = [...marketData];
-        connectMarketStream();
       } finally {
         marketRequestInFlight = false;
       }
@@ -1826,7 +1728,7 @@
       let response;
 
       try {
-        response = await fetch('http://127.0.0.1:8000/chat', {
+        response = await fetch(`${API_BASE}/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query, top_k: 5 }),
