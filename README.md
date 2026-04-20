@@ -1,8 +1,8 @@
 # Elephant Jungle
 
-This project now runs in a single, simple way:
+This project now runs in two parts:
 
-- `frontend/` contains the live static chat UI.
+- `frontend/` contains the React + Vite client.
 - `backend/` contains the FastAPI + RAG backend.
 - `pixexport/` contains the sprite assets used by the UI.
 
@@ -19,13 +19,14 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ### Frontend
 
 ```powershell
-cd "D:\elephant jungle"
-python -m http.server 5500
+cd "D:\elephant jungle\frontend"
+npm install
+npm run dev
 ```
 
 Open:
 
-- `http://127.0.0.1:5500/frontend/index.html`
+- `http://127.0.0.1:5500`
 
 ## Structure
 
@@ -35,5 +36,5 @@ Open:
 
 ## Notes
 
-- The old Vite/React scaffold was removed to keep the workspace lighter and easier to run.
-- If you want a React frontend later, we can add it back cleanly instead of keeping two frontends in parallel.
+- `frontend/public/sheet.png` is the sprite sheet used by the chat runner.
+- The frontend expects the backend API to be available on port `8000` of the same host.
